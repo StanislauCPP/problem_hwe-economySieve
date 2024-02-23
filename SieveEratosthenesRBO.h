@@ -7,19 +7,14 @@
 #include <stdlib.h>
 #include <assert.h>
 
-struct sieve_t {
-	int n;
-	unsigned char* mod1;
-	unsigned char* mod5;
-};
+struct sieve_t;
 
-void initSieve(struct sieve_t* sv);
-
-/*Fills mod1 (6k+1 number) and mod5 (6к+5 number)*/
-void fill_sieve(struct sieve_t* sv);
+struct sieve_t* createSieve(unsigned long long num);
 
 /*Checks number for simplicity */
 int is_prime(struct sieve_t* sv, unsigned n);
+
+unsigned long long primeNumFromSieveByNumber(unsigned long long number, struct sieve_t* sv);
 
 void freeSieve(struct sieve_t* sv);
 

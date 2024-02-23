@@ -15,12 +15,12 @@ int main()
 
 	switch (testParametr)
 	{
-	case 'f':
-		checkFillSieve();
-		break;
-
 	case 'i':
 		checkIsPrime();
+		break;
+	
+	case 'p':
+		checkPrimeNumByNumber();
 		break;
 
 	default:

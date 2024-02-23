@@ -1,59 +1,41 @@
+#include <math.h>
+
 #include "SieveEratosthenesBO.h"
 #include "TestGeneratorFunction.h"
 
-void genBitsByStep(unsigned long long num, struct sieve_t* sieve, unsigned step)
+void testForIsPrime(unsigned long long num)
 {
-	unsigned long long k, j;
+	struct sieve_t* sieve;
+	sieve = createSieve(num);
 	
-	for (k = 0, j = step; j <= num; ++k, j = 6 * k + step)
-	{
-		printf("%d ", !is_prime(sieve, j));
-	}
-	printf("\n");
+	printf("%llu %d\n", num, is_prime(sieve, num));
+	
+	freeSieve(sieve);
 }
 
-void testForFillSieve(unsigned char testParametr, unsigned long long num)
+unsigned long long sieve_bound(unsigned num)
 {
-	struct sieve_t sieve;
+	double bound, dNum;
+	assert(num > 4);
 
-	if(num < 48)
-		num = 48;
-	else if ((num / 48))
-		num = ((num / 48) + 1) * 48;
-	
-	sieve.n = num/8;
+	dNum = num;
+	bound = dNum * (log(dNum) + log(log(dNum)));
 
-	sieve.s = calloc(sieve.n, sizeof(unsigned char));
-	fill_sieve(&sieve);
-
-	printf("%c %llu\n", testParametr, --num);
-	genBitsByStep(num, &sieve, 1);
-	genBitsByStep(num, &sieve, 5);
-	
-	free(sieve.s);
+	return (unsigned long long) round(bound);
 }
 
-void genPrimeStatusToNum(unsigned long long num, struct sieve_t* sieve)
+void testForPrimeNumByNumber(unsigned long long num)
 {
-	unsigned long long i;
+	unsigned long long sieveBound;
+	struct sieve_t* sieve;
 	
-	for (i = 0; i <= num; ++i)
-	{
-		printf("%d ", is_prime(sieve, i));
-	}
-	printf("\n");
-}
+	sieveBound = num;
+	if (sieveBound > 4)
+		sieveBound = sieve_bound(num);
 
-void testForIsPrime(unsigned char testParametr, unsigned long long num)
-{
-	struct sieve_t sieve;
-	sieve.n = (num/8) + 1;
-	
-	sieve.s = calloc(sieve.n, sizeof(unsigned char));
-	fill_sieve(&sieve);
-	
-	printf("%c %llu\n", testParametr, num);
-	genPrimeStatusToNum(num, &sieve);
-	
-	free(sieve.s);
+	sieve = createSieve(sieveBound);
+
+	printf("%llu %llu\n", num, primeNumFromSieveByNumber(sieve, num));
+
+	freeSieve(sieve);
 }

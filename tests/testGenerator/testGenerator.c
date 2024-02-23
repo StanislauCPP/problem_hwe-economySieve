@@ -5,6 +5,7 @@
 #include <assert.h>
 
 #include "TestGeneratorFunction.h"
+#include "SieveEratosthenesBO.h"
 
 int main()
 {
@@ -17,13 +18,15 @@ int main()
 		abort();
 
 	switch(testParametr)
-	{
-	case 'f':
-		testForFillSieve(testParametr, num);
+	{		
+	case 'i':
+		printf("%c ", testParametr);
+		testForIsPrime(num);
 		break;
 		
-	case 'i':
-		testForIsPrime(testParametr, num);
+	case 'p':
+		printf("%c ", testParametr);
+		testForPrimeNumByNumber(num);
 		break;
 		
 	default:

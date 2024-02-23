@@ -5,17 +5,10 @@
 
 #include "SieveEratosthenesRBO.h"
 
-void initSetSieve(unsigned long long num, struct sieve_t* sv)
-{
-	sv->n = num / 48 + 1;
-	initSieve(sv);
-	fill_sieve(sv);
-}
-
 unsigned long long sieve_bound(unsigned num)
 {
 	double bound, dNum;
-	assert(num > 20);
+	assert(num > 13);
 
 	dNum = num;
 	bound = dNum * (log(dNum) + log(log(dNum)));
@@ -25,32 +18,35 @@ unsigned long long sieve_bound(unsigned num)
 
 int main()
 {
-	unsigned long long number, numByNumber, i, sieveBound;
-	struct sieve_t sieve;
+	unsigned long long number, sieveBound;
+	struct sieve_t* sieve;
 
 	int parScanf;
 	
 	parScanf = scanf("%llu", &number);
+	printf("%llu'th", number);
 
 	if (parScanf != 1)
 		abort();
+		
+	if (number == 1)
+		printf(" prime num is %u\n", 2);
+		
+	if (number == 2)
+		printf(" prime num is %u\n", 3);
 
-	if (number > 20)
-		sieveBound = sieve_bound(number);
-	else
-		sieveBound = (49);
-
-	initSetSieve(sieveBound, &sieve);
-
-	for (numByNumber = 0, i = 0; i < number; ++numByNumber)
+	if (number > 2)
 	{
-		if (is_prime(&sieve, numByNumber))
-			++i;
+		if (number > 13)
+			sieveBound = sieve_bound(number);
+		else
+			sieveBound = 49;
+
+		sieve = createSieve(sieveBound);
+		printf(" prime num is %llu\n", primeNumFromSieveByNumber(number, sieve));
+
+		freeSieve(sieve);
 	}
-
-	printf("%llu'th prime num is %llu\n", number, --numByNumber);
-
-	freeSieve(&sieve);
-
+	
 	return 0;
 }

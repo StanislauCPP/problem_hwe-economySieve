@@ -5,8 +5,8 @@
 #include <stdlib.h>
 #include <assert.h>
 
-void testForFillSieve(unsigned char testParametr, unsigned long long num);
+void testForIsPrime(unsigned long long num);
 
-void testForIsPrime(unsigned char testParametr, unsigned long long num);
+void testForPrimeNumByNumber(unsigned long long num);
 
 #endif

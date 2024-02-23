@@ -1,4 +1,4 @@
-/*SieveEratosthenesRadikalBitOptimization*/
+/*SieveEratosthenesBitOptimization*/
 
 #ifndef SIEVEERATOSTHENESBO_H
 #define SIEVEERATOSTHENESBO_H
@@ -7,14 +7,14 @@
 #include <stdlib.h>
 #include <assert.h>
 
-struct sieve_t
-{
-	int n;
-	unsigned char* s;
-};
+struct sieve_t;
 
-void fill_sieve(struct sieve_t* sv);
+struct sieve_t* createSieve(unsigned long long num);
 
-int is_prime(struct sieve_t* sv, unsigned n);
+int is_prime(struct sieve_t* sv, unsigned long long n);
+
+unsigned long long primeNumFromSieveByNumber(struct sieve_t* sv, unsigned long long n);
+
+void freeSieve(struct sieve_t* sv);
 
 #endif
